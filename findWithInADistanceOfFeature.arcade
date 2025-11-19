@@ -1,0 +1,45 @@
+// --- CONFIGURATION ---
+// Edit these two values for your own map/layer:
+var targetLayerName = 'Target Layer';     // Layer to search within
+var returnField = 'ReturnField';          // Field to return from the closest feature
+var bufferDistance = 100;                 // Distance number
+var bufferUnits = 'feet';                 // Units (feet, meters, etc.)
+
+// --- SAFETY CHECK ---
+if (IsEmpty(Geometry($feature))) { 
+    return null 
+}
+
+// --- GET TARGET LAYER ---
+var targetLayer = FeatureSetByName($map, targetLayerName)
+
+// --- BUFFER + SPATIAL QUERY ---
+var bufferedGeom = Buffer($feature, bufferDistance, bufferUnits)
+var intersecting = Intersects(targetLayer, bufferedGeom)
+
+// --- BUILD DICTIONARIES WITH DISTANCES ---
+var items = []
+for (var t in intersecting) {
+    Push(items,
+        {
+            'distance': Distance($feature, t, bufferUnits),
+            'feature': t
+        }
+    )
+}
+
+// --- SORT BY DISTANCE ---
+function sortByDistance(a, b) {
+    return a['distance'] - b['distance']
+}
+
+var sorted = Sort(items, sortByDistance)
+
+// --- GET CLOSEST ---
+var closest = First(sorted)
+if (IsEmpty(closest)) { 
+    return null 
+}
+
+// --- RETURN FIELD VALUE ---
+return `${closest['feature'][returnField]}`
