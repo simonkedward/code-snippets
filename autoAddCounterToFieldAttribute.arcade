@@ -1,0 +1,5 @@
+var numberlist = FeatureSetByName($map,"<layer_name>")
+var topnum = Top(OrderBy(numberlist,'<field_name> DESC'),1)
+var counter = Number(Max(topnum,'<field_name>'))
+var id = counter+1
+return id
