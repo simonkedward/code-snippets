@@ -1,0 +1,26 @@
+// Replace 'your_field_name' with your actual field
+var text = $feature.your_field_name;
+
+// If empty, return nothing
+if (IsEmpty(text)) {
+    return "";
+}
+
+// Split into words
+var words = Split(text, " ");
+
+// If only one word, just return its first letter
+if (Count(words) == 1) {
+    return Left(words[0], 1);
+}
+
+// First letter of the first word
+var firstLetter = Left(words[0], 1);
+
+// Concatenate with the rest of the words
+var label = firstLetter;
+for (var i = 1; i < Count(words); i++) {
+    label += " " + words[i];
+}
+
+return label;
