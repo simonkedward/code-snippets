@@ -1,0 +1,30 @@
+// ------------------------------------------------------------
+// CONFIGURATION — update these for reuse
+// ------------------------------------------------------------
+var relationshipName = "PlantRelationship";   // Name of the relationship
+var sortField        = "HarvestDate";         // Field to sort by
+var returnField      = "Fruiting";            // Field to return from newest record
+var sortDescending   = true;                  // true = newest first
+// ------------------------------------------------------------
+
+// Get related records
+var related = FeatureSetByRelationshipName($feature, relationshipName);
+
+// No related records
+if (Count(related) == 0) { 
+    return null; 
+}
+
+// Build sort expression
+var sortExpression = sortField + (sortDescending ? " DESC" : " ASC");
+
+// Sort and get the first (top) record
+var latest = First(OrderBy(related, sortExpression));
+
+// If something goes wrong, return null
+if (IsEmpty(latest)) {
+    return null;
+}
+
+// Return the chosen field value
+return latest[returnField];
