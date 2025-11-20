@@ -1,0 +1,15 @@
+// Define the attribute to be used for querying features
+//This returns the attribute from a feature layer. The layer must be in the webmap for this to work.
+var attributeFeature = 'label'
+// Retrieve features from the specified layer based on the defined attribute value
+var labelFromFeature = FeatureSetByName($map, 'Zoo Grid', [attributeFeature])
+// Find the first feature that intersects with the current feature
+var feature = First(intersects($feature, labelFromFeature))
+// Check if a feature was found
+if (!IsEmpty(feature)) {
+    // If a feature was found, return the value of the specified attribute
+    return feature[attributeFeature]
+} else {
+    // If no intersecting feature was found, return null
+    return null
+}
