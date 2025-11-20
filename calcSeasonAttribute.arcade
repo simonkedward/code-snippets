@@ -1,0 +1,15 @@
+// Get the current date and extract the month
+var monthValue = Month(Now());
+
+// Determine the season based on the month
+if (monthValue == 12 || monthValue == 1 || monthValue == 2) {
+    return 'Winter';
+} else if (monthValue >= 3 && monthValue <= 5) {
+    return 'Spring';
+} else if (monthValue >= 6 && monthValue <= 8) {
+    return 'Summer';
+} else if (monthValue >= 9 && monthValue <= 11) {
+    return 'Fall';
+} else {
+    return 'Unknown';
+}
