@@ -1,0 +1,9 @@
+var str = $feature.Controller_Name; // replace FIELD_NAME with the name of your string field
+var words = Split(str, " ");
+var label = "";
+
+for (var i in words) {
+  label += Left(words[i], 1);
+}
+
+return Upper(label); // optional: convert label to uppercase
