@@ -1,3 +1,8 @@
+// This code works off two attributes. The first being the speed of the vehicle the second being the status.
+// Set Max speed will determine the amount of space on the bar for the $feature.Speed
+// Set the vaules in Status to reflect the $feature.Status on the layer. If you have more then 3 choices in Status you will need to add more else if statements
+// speed and status are the default values. Set to states of data. This will colour the progress bar. Set the colour to match the symbology of your data. 
+
 var speed = DefaultValue($feature.Speed, 0);
 var status = DefaultValue($feature.Status, "At depot");
 var maxSpeed = 70;
