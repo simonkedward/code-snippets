@@ -1,0 +1,26 @@
+var speed = DefaultValue($feature.Speed, 0);
+var status = DefaultValue($feature.Status, "At depot");
+var maxSpeed = 70;
+
+var colour = "#000000";
+if (status >= "Responding to call") {
+  colour = "#ed5151";
+} else if (status >= "En Route") {
+  colour = "#ebcc07";
+}
+
+var width = Min(speed / maxSpeed * 100, 100);
+
+var htmlOutput = "<div style=\"width:200px;\">" +
+  "<div style=\"background-color:#d9d9d9;height:16px;border-radius:8px;\">" +
+  "<div style=\"background-color:" +
+  colour +
+  ";width:" +
+  width +
+  "%;height:16px;border-radius:8px;\"></div>" +
+  "</div>" +
+  "<div style=\"margin-top:4px;font-weight:bold;\">" +
+  speed +
+  " mph</div></div>";
+
+return { type: "text", text: htmlOutput };
